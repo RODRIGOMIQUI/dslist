@@ -33,4 +33,15 @@ public class GameService {
             .map(game -> new GameDTO(game))
             .orElseThrow(() -> new RuntimeException("Game not found"));
     }
+
+    @Transactional(readOnly = true)
+    public List<GameMinDTO> findByList(Long listId) {
+        List<GameMinDTO> result = gameRepository
+            .searchByList(listId)
+            .stream()
+            .map(x -> new GameMinDTO(x))
+            .toList();
+        return result;
+    }
+    
 }
